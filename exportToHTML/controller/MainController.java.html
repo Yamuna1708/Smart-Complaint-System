@@ -1,0 +1,141 @@
+<html>
+<head>
+<title>MainController.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+.s5 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainController.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">controller</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">model</span><span class="s2">.</span><span class="s1">User</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">model</span><span class="s2">.</span><span class="s1">Complaint</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">service</span><span class="s2">.</span><span class="s1">UserService</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">service</span><span class="s2">.</span><span class="s1">ComplaintService</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Scanner</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">MainController </span><span class="s2">{</span>
+
+    <span class="s0">public static void </span><span class="s1">main</span><span class="s2">(</span><span class="s1">String</span><span class="s2">[] </span><span class="s1">args</span><span class="s2">) {</span>
+
+        <span class="s1">Scanner sc </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Scanner</span><span class="s2">(</span><span class="s1">System</span><span class="s2">.</span><span class="s1">in</span><span class="s2">);</span>
+        <span class="s1">UserService userService </span><span class="s2">= </span><span class="s0">new </span><span class="s1">UserService</span><span class="s2">();</span>
+        <span class="s1">ComplaintService complaintService </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ComplaintService</span><span class="s2">();</span>
+
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;=== LOGIN ===&quot;</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Username: &quot;</span><span class="s2">);</span>
+        <span class="s1">String uname </span><span class="s2">= </span><span class="s1">sc</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Password: &quot;</span><span class="s2">);</span>
+        <span class="s1">String pass </span><span class="s2">= </span><span class="s1">sc</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+
+        <span class="s1">User user </span><span class="s2">= </span><span class="s1">userService</span><span class="s2">.</span><span class="s1">login</span><span class="s2">(</span><span class="s1">uname</span><span class="s2">, </span><span class="s1">pass</span><span class="s2">);</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">user </span><span class="s2">== </span><span class="s0">null</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;❌ Invalid login&quot;</span><span class="s2">);</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;✅ Welcome &quot; </span><span class="s2">+ </span><span class="s1">user</span><span class="s2">.</span><span class="s1">getRole</span><span class="s2">());</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">user</span><span class="s2">.</span><span class="s1">getRole</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s3">&quot;ADMIN&quot;</span><span class="s2">)) {</span>
+
+            <span class="s0">while </span><span class="s2">(</span><span class="s0">true</span><span class="s2">) {</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">--- ADMIN MENU ---&quot;</span><span class="s2">);</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;1. View All Complaints&quot;</span><span class="s2">);</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;2. Update Complaint Status&quot;</span><span class="s2">);</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;3. Delete Complaint&quot;</span><span class="s2">);</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;4. Exit&quot;</span><span class="s2">);</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Enter choice: &quot;</span><span class="s2">);</span>
+
+                <span class="s0">int </span><span class="s1">ch </span><span class="s2">= </span><span class="s1">sc</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+
+                <span class="s0">switch </span><span class="s2">(</span><span class="s1">ch</span><span class="s2">) {</span>
+                    <span class="s0">case </span><span class="s4">1</span><span class="s2">:</span>
+                        <span class="s0">for </span><span class="s2">(</span><span class="s1">Complaint c </span><span class="s2">: </span><span class="s1">complaintService</span><span class="s2">.</span><span class="s1">getAllComplaints</span><span class="s2">()) {</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span>
+                                    <span class="s1">c</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">() + </span><span class="s3">&quot; | &quot; </span><span class="s2">+</span>
+                                            <span class="s1">c</span><span class="s2">.</span><span class="s1">getCategory</span><span class="s2">() + </span><span class="s3">&quot; | &quot; </span><span class="s2">+</span>
+                                            <span class="s1">c</span><span class="s2">.</span><span class="s1">getDescription</span><span class="s2">() + </span><span class="s3">&quot; | &quot; </span><span class="s2">+</span>
+                                            <span class="s1">c</span><span class="s2">.</span><span class="s1">getStatus</span><span class="s2">()</span>
+                            <span class="s2">);</span>
+                        <span class="s2">}</span>
+                        <span class="s0">break</span><span class="s2">;</span>
+
+                    <span class="s0">case </span><span class="s4">2</span><span class="s2">:</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Enter Complaint ID: &quot;</span><span class="s2">);</span>
+                        <span class="s0">int </span><span class="s1">id </span><span class="s2">= </span><span class="s1">sc</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                        <span class="s1">sc</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;New Status: &quot;</span><span class="s2">);</span>
+                        <span class="s1">String status </span><span class="s2">= </span><span class="s1">sc</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                        <span class="s1">complaintService</span><span class="s2">.</span><span class="s1">updateComplaintStatus</span><span class="s2">(</span><span class="s1">id</span><span class="s2">, </span><span class="s1">status</span><span class="s2">);</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;✅ Updated&quot;</span><span class="s2">);</span>
+                        <span class="s0">break</span><span class="s2">;</span>
+
+                    <span class="s0">case </span><span class="s4">3</span><span class="s2">:</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Enter ID to delete: &quot;</span><span class="s2">);</span>
+                        <span class="s1">complaintService</span><span class="s2">.</span><span class="s1">deleteComplaint</span><span class="s2">(</span><span class="s1">sc</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">());</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;🗑 Deleted&quot;</span><span class="s2">);</span>
+                        <span class="s0">break</span><span class="s2">;</span>
+
+                    <span class="s0">case </span><span class="s4">4</span><span class="s2">:</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">exit</span><span class="s2">(</span><span class="s4">0</span><span class="s2">);</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+
+        <span class="s2">} </span><span class="s0">else </span><span class="s2">{ </span><span class="s5">// USER</span>
+
+            <span class="s0">while </span><span class="s2">(</span><span class="s0">true</span><span class="s2">) {</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">--- USER MENU ---&quot;</span><span class="s2">);</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;1. Add Complaint&quot;</span><span class="s2">);</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;2. View Complaints&quot;</span><span class="s2">);</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;3. Exit&quot;</span><span class="s2">);</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Enter choice: &quot;</span><span class="s2">);</span>
+
+                <span class="s0">int </span><span class="s1">ch </span><span class="s2">= </span><span class="s1">sc</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                <span class="s1">sc</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+
+                <span class="s0">switch </span><span class="s2">(</span><span class="s1">ch</span><span class="s2">) {</span>
+                    <span class="s0">case </span><span class="s4">1</span><span class="s2">:</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;ID: &quot;</span><span class="s2">);</span>
+                        <span class="s0">int </span><span class="s1">id </span><span class="s2">= </span><span class="s1">sc</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                        <span class="s1">sc</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Category: &quot;</span><span class="s2">);</span>
+                        <span class="s1">String cat </span><span class="s2">= </span><span class="s1">sc</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Description: &quot;</span><span class="s2">);</span>
+                        <span class="s1">String desc </span><span class="s2">= </span><span class="s1">sc</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+
+                        <span class="s1">complaintService</span><span class="s2">.</span><span class="s1">addComplaint</span><span class="s2">(</span>
+                                <span class="s0">new </span><span class="s1">Complaint</span><span class="s2">(</span><span class="s1">id</span><span class="s2">, </span><span class="s1">cat</span><span class="s2">, </span><span class="s1">desc</span><span class="s2">, </span><span class="s3">&quot;OPEN&quot;</span><span class="s2">)</span>
+                        <span class="s2">);</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;✅ Added&quot;</span><span class="s2">);</span>
+                        <span class="s0">break</span><span class="s2">;</span>
+
+                    <span class="s0">case </span><span class="s4">2</span><span class="s2">:</span>
+                        <span class="s0">for </span><span class="s2">(</span><span class="s1">Complaint c </span><span class="s2">: </span><span class="s1">complaintService</span><span class="s2">.</span><span class="s1">getAllComplaints</span><span class="s2">()) {</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">c</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">() + </span><span class="s3">&quot; | &quot; </span><span class="s2">+</span><span class="s1">c</span><span class="s2">.</span><span class="s1">getCategory</span><span class="s2">() + </span><span class="s3">&quot; | &quot; </span><span class="s2">+ </span><span class="s1">c</span><span class="s2">.</span><span class="s1">getDescription</span><span class="s2">());</span>
+                        <span class="s2">}</span>
+                        <span class="s0">break</span><span class="s2">;</span>
+
+                    <span class="s0">case </span><span class="s4">3</span><span class="s2">:</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">exit</span><span class="s2">(</span><span class="s4">0</span><span class="s2">);</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
